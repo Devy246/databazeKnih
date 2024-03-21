@@ -1,0 +1,64 @@
+The Great Gatsby, F. Scott Fitzgerald, Fiction, 180
+To Kill a Mockingbird, Harper Lee, Fiction, 281
+Nineteen Eighty-Four, George Orwell, Science Fiction, 328
+Pride and Prejudice, Jane Austen, Romance, 432
+The Catcher in the Rye, J.D. Salinger, Classic, 224
+The Lord of the Rings, J.R.R. Tolkien, Fantasy, 1178
+Harry Potter and the Sorcerer's Stone, J.K. Rowling, Young Adult, 320
+The Hobbit, J.R.R. Tolkien, Fantasy, 310
+Animal Farm, George Orwell, Allegory, 112
+Brave New World, Aldous Huxley, Science Fiction, 288
+The Hunger Games, Suzanne Collins, Dystopian, 374
+Fahrenheit 451, Ray Bradbury, Science Fiction, 227
+The Da Vinci Code, Dan Brown, Mystery, 454
+The Lion the Witch and the Wardrobe, C.S. Lewis, Fantasy, 206
+The Alchemist, Paulo Coelho, Fantasy, 197
+The Girl with the Dragon Tattoo, Stieg Larsson, Mystery, 672
+The Shining, Stephen King, Horror, 447
+The Hitchhiker's Guide to the Galaxy, Douglas Adams, Science Fiction, 224
+Gone with the Wind, Margaret Mitchell, Historical Fiction, 1037
+Wuthering Heights, Emily Brontë, Gothic Fiction, 342
+Jane Eyre, Charlotte Brontë, Gothic Fiction, 624
+Moby-Dick, Herman Melville, Adventure, 582
+The Grapes of Wrath, John Steinbeck, Classic, 464
+Anna Karenina, Leo Tolstoy, Fiction, 964
+The Picture of Dorian Gray, Oscar Wilde, Gothic Fiction, 254
+The Count of Monte Cristo, Alexandre Dumas, Adventure, 1276
+Frankenstein, Mary Shelley, Science Fiction, 280
+Dracula, Bram Stoker, Gothic Fiction, 418
+Alice's Adventures in Wonderland, Lewis Carroll, Fantasy, 200
+The Adventures of Sherlock Holmes, Arthur Conan Doyle, Mystery, 307
+War and Peace, Leo Tolstoy, Historical Fiction, 1392
+Les Miserables, Victor Hugo, Historical Fiction, 1463
+The Odyssey, Homer, Epic Poetry, 484
+The Iliad, Homer, Epic Poetry, 683
+The Divine Comedy, Dante Alighieri, Epic Poetry, 798
+Crime and Punishment, Fyodor Dostoevsky, Psychological Fiction, 671
+The Brothers Karamazov, Fyodor Dostoevsky, Philosophical Fiction, 796
+One Hundred Years of Solitude, Gabriel García Márquez, Magic Realism, 417
+Don Quixote, Miguel de Cervantes, Novel, 863
+Great Expectations, Charles Dickens, Classic, 505
+The Canterbury Tales, Geoffrey Chaucer, Poetry, 518
+The Stranger, Albert Camus, Absurdist Fiction, 123
+Slaughterhouse-Five, Kurt Vonnegut, Satire, 275
+The Road, Cormac McCarthy, Post-apocalyptic Fiction, 287
+The Bell Jar, Sylvia Plath, Semi-autobiographical Fiction, 288
+The Secret Garden, Frances Hodgson Burnett, Children's, 331
+The Little Prince, Antoine de Saint-Exupéry, Fantasy, 96
+The Wind in the Willows, Kenneth Grahame, Children's, 256
+Treasure Island, Robert Louis Stevenson, Adventure, 311
+Peter Pan, J.M. Barrie, Fantasy, 273
+The Jungle Book, Rudyard Kipling, Adventure, 258
+Charlotte's Web, E.B. White, Children's, 184
+Little Women, Louisa May Alcott, Classic, 759
+Anne of Green Gables, L.M. Montgomery, Children's, 320
+The Adventures of Tom Sawyer, Mark Twain, Adventure, 273
+Adventures of Huckleberry Finn, Mark Twain, Adventure, 366
+Lord of the Flies, William Golding, Allegorical Novel, 224
+Of Mice and Men, John Steinbeck, Novella, 107
+The Gruffalo, Julia Donaldson, Children's, 32
+Green Eggs and Ham, Dr. Seuss, Children's, 62
+Where the Wild Things Are, Maurice Sendak, Children's, 37
+Goodnight Moon, Margaret Wise Brown, Children's, 30
+The Giving Tree, Shel Silverstein, Children's, 64
+The Very Hungry Caterpillar, Eric Carle, Children's, 32

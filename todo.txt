@@ -1,0 +1,4 @@
+TODO:
+- make tests for loading files
+- make documentation
+- make the project and shit
