@@ -23,10 +23,39 @@ typedef struct{
     int pocetStran;
 } KNIHA;
 
+void tiskZaznamu(KNIHA zaznam){
+    printf("\n\tnazev: %s \n\tautor: %s \n\tzanr:  %s \n\tpocet stran: %d\n", zaznam.nazev, zaznam.autor, zaznam.zanr, zaznam.pocetStran);
+}
+
+void tiskDatabaze(KNIHA databaze[], int pocet){
+    for(int i=0;i<pocet;i++){
+        printf("%3d: ",i+1);
+        tiskZaznamu(databaze[i]);
+    }
+    switch(pocet){
+    case 1:
+        printf("\n\t%d kniha v databazi\n",pocet);
+        break;
+    case 2:
+        printf("\n\t%d knihy v databazi\n",pocet);
+        break;
+    case 3:
+        printf("\n\t%d knihy v databazi\n",pocet);
+        break;
+    case 4:
+        printf("\n\t%d knihy v databazi\n",pocet);
+        break;
+    default:
+        printf("\n\t%d knih v databazi\n",pocet);
+        break;
+    }
+}
+
 int nacteniDatabaze(KNIHA databaze[], int * pocetZaznamu){
-    FILE *f = fopen("test1.txt","rw");
+    FILE *f = fopen("test1.txt","r");
     if(f==NULL){
         printf("databaze se nedala nacist, nechyby vam nahodou databaze.txt? koncim..");
+        fclose(f);
         return 1;
     } else {
         int e; KNIHA temp;
@@ -42,11 +71,28 @@ int nacteniDatabaze(KNIHA databaze[], int * pocetZaznamu){
         // -1 ==eof, 4 znamena ze se nacetlo spravne, ale dosahlo to maximalniho poctu prvku
         if(e!=-1 && e!=4){
             printf("jejdanenky! nastala chyba v formatu databaze, omrknete to prosimvas..");
+            fclose(f);
             return 1;
         } else {
+            fclose(f);
             return 0;
         }
 
+    }
+}
+
+void smazaniZaznamu(KNIHA databaze[], int * pocetZaznamu){
+    int s;
+    printf("zadejte cislo knihy v zaznamu, ktery chcete smazat: ");
+    scanf("%d",&s);
+    s--;
+    if( (s<0) || (s>((*pocetZaznamu)-1)) ){
+        printf("\nzadane cislo knihy neexistuje, koncim smazani..");
+    } else {
+        for(;s<(*pocetZaznamu);s++){
+            databaze[s] = databaze[s+1];
+        }
+        (*pocetZaznamu)--;
     }
 }
 
@@ -59,10 +105,8 @@ int main(void)
         return 1;
       }
 
-  printf("pocet zaznamu: %d",pocetZaznamu);
-  for(int i=0;i<pocetZaznamu;i++){
-    printf("\n%d: %s, %s, %s, %d", i, databaze[i].nazev,databaze[i].autor,databaze[i].zanr,databaze[i].pocetStran);
-  }
-
+  tiskDatabaze(databaze,pocetZaznamu);
+  smazaniZaznamu(databaze,&pocetZaznamu);
+  tiskDatabaze(databaze,pocetZaznamu);
   return 0;
 }

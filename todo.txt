@@ -1,4 +1,8 @@
 TODO:
-- make tests for loading files
-- make documentation
-- make the project and shit
+- make struct also have year of release
+- generate database with all attributes in czech
+- create sorting by year function
+- create struct deleting function
+- create searching function (by name, author, genre, pagecount, year)
+- create struct adding function
+- create save button
