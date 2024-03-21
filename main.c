@@ -97,6 +97,37 @@ void smazaniZaznamu(KNIHA databaze[], int * pocetZaznamu){
     }
 }
 
+void QSswap(KNIHA *a, KNIHA *b){
+    KNIHA c=*a;
+    *a=*b;
+    *b=c;
+}
+
+int QSsort(KNIHA a[],int l,int r){
+    int i=l;
+    int pVal=a[r].rokVydani;
+    for(int j=l;j<r;j++){
+        if(a[j].rokVydani<=pVal){
+            QSswap(&a[j],&a[i]);
+            i++;
+        }
+    }
+    QSswap(&a[i],&a[r]);
+    return i;
+}
+
+void QSrec(KNIHA a[],int l, int r){
+    if(l<r){
+        int pivot = QSsort(a,l,r);
+        QSrec(a,l,pivot-1);
+        QSrec(a,pivot+1,r);
+    }
+}
+
+void sortDatabaze(KNIHA a[],int size){
+    QSrec(a,0,size-1);
+}
+
 int main(void)
 {
   KNIHA databaze[MAXZaznamu];
@@ -108,6 +139,9 @@ int main(void)
 
   tiskDatabaze(databaze,pocetZaznamu);
   smazaniZaznamu(databaze,&pocetZaznamu);
+  tiskDatabaze(databaze,pocetZaznamu);
+
+  sortDatabaze(databaze,pocetZaznamu);
   tiskDatabaze(databaze,pocetZaznamu);
   return 0;
 }
