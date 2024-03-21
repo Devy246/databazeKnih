@@ -21,10 +21,11 @@ typedef struct{
     char autor[256];
     char zanr[256];
     int pocetStran;
+    int rokVydani;
 } KNIHA;
 
 void tiskZaznamu(KNIHA zaznam){
-    printf("\n\tnazev: %s \n\tautor: %s \n\tzanr:  %s \n\tpocet stran: %d\n", zaznam.nazev, zaznam.autor, zaznam.zanr, zaznam.pocetStran);
+    printf("\n\tnazev: %s \n\tautor: %s \n\tzanr:  %s \n\tpocet stran: %d \n\trok vydani: %d\n", zaznam.nazev, zaznam.autor, zaznam.zanr, zaznam.pocetStran, zaznam.rokVydani);
 }
 
 void tiskDatabaze(KNIHA databaze[], int pocet){
@@ -52,14 +53,14 @@ void tiskDatabaze(KNIHA databaze[], int pocet){
 }
 
 int nacteniDatabaze(KNIHA databaze[], int * pocetZaznamu){
-    FILE *f = fopen("test1.txt","r");
+    FILE *f = fopen("test2.txt","r");
     if(f==NULL){
-        printf("databaze se nedala nacist, nechyby vam nahodou databaze.txt? koncim..");
+        printf("databaze se nedala nacist, nechyby vam nahodou databaze? koncim..");
         fclose(f);
         return 1;
     } else {
         int e; KNIHA temp;
-        while((e=fscanf(f,"%255[^,], %255[^,], %255[^,], %d\n", temp.nazev, temp.autor, temp.zanr, &temp.pocetStran))==4){
+        while((e=fscanf(f,"%255[^,], %255[^,], %255[^,], %d, %d\n", temp.nazev, temp.autor, temp.zanr, &temp.pocetStran, &temp.rokVydani))==5){
             (*pocetZaznamu)++;
             if(*pocetZaznamu>MAXZaznamu){
                 printf("maximalni pocet knih dosazen, vic uz nenacitam");
@@ -69,7 +70,7 @@ int nacteniDatabaze(KNIHA databaze[], int * pocetZaznamu){
             databaze[(*pocetZaznamu)-1] = temp;
         }
         // -1 ==eof, 4 znamena ze se nacetlo spravne, ale dosahlo to maximalniho poctu prvku
-        if(e!=-1 && e!=4){
+        if(e!=-1 && e!=5){
             printf("jejdanenky! nastala chyba v formatu databaze, omrknete to prosimvas..");
             fclose(f);
             return 1;
@@ -85,10 +86,10 @@ void smazaniZaznamu(KNIHA databaze[], int * pocetZaznamu){
     int s;
     printf("zadejte cislo knihy v zaznamu, ktery chcete smazat: ");
     scanf("%d",&s);
-    s--;
-    if( (s<0) || (s>((*pocetZaznamu)-1)) ){
+    if( (s<1) || (s>(*pocetZaznamu)) ){
         printf("\nzadane cislo knihy neexistuje, koncim smazani..");
     } else {
+        s--;
         for(;s<(*pocetZaznamu);s++){
             databaze[s] = databaze[s+1];
         }
