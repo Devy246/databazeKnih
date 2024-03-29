@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 // #include <string.h>  // pro praci s textovymi retezci
-// #include <stdbool.h> // pro praci s typem bool a konstantami true a false
+#include <stdbool.h> // pro praci s typem bool a konstantami true a false
 // #include <ctype.h>   // isalpha, isspace, islower, isupper, ...
 // #include <math.h>    // funkce z matematicke knihovny
 // #include <float.h>   // konstanty pro racionalni typy DBL_MAX, DBL_DIG, ...
@@ -22,64 +22,68 @@ typedef struct{
     char zanr[256];
     int pocetStran;
     int rokVydani;
+    bool jeSmazano;
 } KNIHA;
 
+typedef struct{
+    KNIHA prvky[MAXZaznamu];
+    int pocetZaznamu;
+} KDATABAZE;
+
 void tiskZaznamu(KNIHA zaznam){
-    printf("\n\tnazev: %s \n\tautor: %s \n\tzanr:  %s \n\tpocet stran: %d \n\trok vydani: %d\n", zaznam.nazev, zaznam.autor, zaznam.zanr, zaznam.pocetStran, zaznam.rokVydani);
+    printf("\n\tnazev: %s \n\tautor: %s \n\tzanr: %s \n\tpocet stran: %d \n\trok vydani: %d\n", zaznam.nazev, zaznam.autor, zaznam.zanr, zaznam.pocetStran, zaznam.rokVydani);
+    if(zaznam.jeSmazano==1){
+            printf("\tPO UKLADANI ZMEN BUDE SMAZAN\n");
+        }
 }
 
-void tiskDatabaze(KNIHA databaze[], int pocet){
-    for(int i=0;i<pocet;i++){
+void tiskDatabaze(KDATABAZE * databaze){
+    for(int i=0;i<databaze->pocetZaznamu;i++){
         printf("%3d: ",i+1);
-        tiskZaznamu(databaze[i]);
+        tiskZaznamu(databaze->prvky[i]);
     }
-    switch(pocet){
+    switch(databaze->pocetZaznamu){
     case 1:
-        printf("\n\t%d kniha v databazi\n",pocet);
+        printf("\n\t%d kniha v databazi\n",databaze->pocetZaznamu);
         break;
     case 2:
-        printf("\n\t%d knihy v databazi\n",pocet);
+        printf("\n\t%d knihy v databazi\n",databaze->pocetZaznamu);
         break;
     case 3:
-        printf("\n\t%d knihy v databazi\n",pocet);
+        printf("\n\t%d knihy v databazi\n",databaze->pocetZaznamu);
         break;
     case 4:
-        printf("\n\t%d knihy v databazi\n",pocet);
+        printf("\n\t%d knihy v databazi\n",databaze->pocetZaznamu);
         break;
     default:
-        printf("\n\t%d knih v databazi\n",pocet);
+        printf("\n\t%d knih v databazi\n",databaze->pocetZaznamu);
         break;
     }
 }
 
-int nacteniDatabaze(KNIHA databaze[], int * pocetZaznamu){
-    FILE *f = fopen("test2.txt","r");
-    if(f==NULL){
-        printf("databaze se nedala nacist, nechyby vam nahodou databaze? koncim..");
-        fclose(f);
-        return 1;
-    } else {
+int nacteniDatabaze(FILE *f, KDATABAZE * databaze){
+    databaze->pocetZaznamu = 0;
+    printf("zacalo nacteni databaze");
         int e; KNIHA temp;
         while((e=fscanf(f,"%255[^,], %255[^,], %255[^,], %d, %d\n", temp.nazev, temp.autor, temp.zanr, &temp.pocetStran, &temp.rokVydani))==5){
-            (*pocetZaznamu)++;
-            if(*pocetZaznamu>MAXZaznamu){
+            printf("%d",e);
+            temp.jeSmazano = 0;
+            databaze->pocetZaznamu++;
+            if((databaze->pocetZaznamu)>MAXZaznamu){
                 printf("maximalni pocet knih dosazen, vic uz nenacitam");
-                (*pocetZaznamu)--;
+                databaze->pocetZaznamu--;
                 break;
             }
-            databaze[(*pocetZaznamu)-1] = temp;
+            databaze->prvky[(databaze->pocetZaznamu)-1] = temp;
         }
-        // -1 ==eof, 4 znamena ze se nacetlo spravne, ale dosahlo to maximalniho poctu prvku
+        // -1 ==eof, 5 znamena ze se nacetlo spravne, ale dosahlo to maximalniho poctu prvku
         if(e!=-1 && e!=5){
             printf("jejdanenky! nastala chyba v formatu databaze, omrknete to prosimvas..");
-            fclose(f);
             return 1;
         } else {
-            fclose(f);
             return 0;
         }
 
-    }
 }
 
 void smazaniZaznamu(KNIHA databaze[], int * pocetZaznamu){
@@ -103,7 +107,7 @@ void QSswap(KNIHA *a, KNIHA *b){
     *b=c;
 }
 
-int QSsort(KNIHA a[],int l,int r){
+int QSsortRok(KNIHA a[],int l,int r){
     int i=l;
     int pVal=a[r].rokVydani;
     for(int j=l;j<r;j++){
@@ -116,32 +120,63 @@ int QSsort(KNIHA a[],int l,int r){
     return i;
 }
 
-void QSrec(KNIHA a[],int l, int r){
+void QSrecRok(KNIHA a[],int l, int r){
     if(l<r){
-        int pivot = QSsort(a,l,r);
-        QSrec(a,l,pivot-1);
-        QSrec(a,pivot+1,r);
+        int pivot = QSsortRok(a,l,r);
+        QSrecRok(a,l,pivot-1);
+        QSrecRok(a,pivot+1,r);
     }
 }
 
-void sortDatabaze(KNIHA a[],int size){
-    QSrec(a,0,size-1);
+void sortDatabazeRok(KNIHA a[],int size){
+    QSrecRok(a,0,size-1);
 }
+/*
+void opravaZaznamu(KNIHA a[],int pocetZaznamu){
+    int vyb;
+    printf("\nzadejte cislo knihy, kterou chcete opravit: ");
+    scanf("%d",&vyb);
+    if( (vyb<1) || ( vyb>(pocetZaznamu-1) ) ){
+        printf("\ncislo moc male nebo moc velke, rusim opravu..");
+        break;
+    } else {
+        vyb--;
+        tiskZaznamu(a[vyb]);
+        printf("\nzadejte postupne nove hodnoty knihy,");
+        printf("novy nazev: ");//doplnit
+            scanf("%255[^,]", a[].nazev);
+        printf("novy autor: ");
+        printf("novy pocet stran:");
+        printf("novy rok vydani: ");
+    }
+}*/
+
 
 int main(void)
 {
-  KNIHA databaze[MAXZaznamu];
-  int pocetZaznamu = 0;
-  int err = nacteniDatabaze(databaze,&pocetZaznamu);
-      if(err!=0){
+  printf("ahoj");
+  KDATABAZE databaze;
+  FILE * f = fopen("test2.txt","rw");
+
+  if(f==NULL){
+        printf("databaze se nedala nacist, nechyby vam nahodou databaze? koncim..");
+        fclose(f);
         return 1;
-      }
+    }
+  int err = nacteniDatabaze(f,&databaze);
+    fclose(f);
+    if(err!=0){
+    return 1;
+    }
 
-  tiskDatabaze(databaze,pocetZaznamu);
-  smazaniZaznamu(databaze,&pocetZaznamu);
-  tiskDatabaze(databaze,pocetZaznamu);
+  tiskDatabaze(&databaze);
+//  smazaniZaznamu(databaze,&pocetZaznamu);
+//  tiskDatabaze(databaze,pocetZaznamu);
 
-  sortDatabaze(databaze,pocetZaznamu);
-  tiskDatabaze(databaze,pocetZaznamu);
+//  sortDatabazeRok(databaze,pocetZaznamu);
+//if if  tiskDatabaze(databaze,pocetZaznamu);
+
+  //opravaZaznamu(databaze,&pocetZaznamu);
+  //tiskDatabaze(databaze,pocetZaznamu);
   return 0;
 }

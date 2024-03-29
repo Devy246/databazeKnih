@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1711064050 source:/home/dejv/Codeblocks/4G/databazeKnih/main.c
+1711579713 source:/home/dejv/Codeblocks/4G/databazeKnih/main.c
 	"gvid.h"
 	<stdio.h>
 	<stdlib.h>
+	<stdbool.h>
 
 1711038010 /home/dejv/Codeblocks/4G/databazeKnih/gvid.h
 
