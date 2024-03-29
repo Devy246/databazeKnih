@@ -33,7 +33,7 @@ typedef struct{
 void tiskZaznamu(KNIHA zaznam){
     printf("\n\tnazev: %s \n\tautor: %s \n\tzanr: %s \n\tpocet stran: %d \n\trok vydani: %d\n", zaznam.nazev, zaznam.autor, zaznam.zanr, zaznam.pocetStran, zaznam.rokVydani);
     if(zaznam.jeSmazano==1){
-            printf("\tPO UKLADANI ZMEN BUDE SMAZAN\n");
+            printf("\t[PO UKLADANI ZMEN BUDE TENTO ZAZNAM SMAZAN]\n");
         }
 }
 
@@ -86,18 +86,18 @@ int nacteniDatabaze(FILE *f, KDATABAZE * databaze){
 
 }
 
-void smazaniZaznamu(KNIHA databaze[], int * pocetZaznamu){
+void smazaniZaznamu(KDATABAZE * databaze){
     int s;
     printf("zadejte cislo knihy v zaznamu, ktery chcete smazat: ");
     scanf("%d",&s);
-    if( (s<1) || (s>(*pocetZaznamu)) ){
+    if( (s<1) || (s>(databaze->pocetZaznamu)) ){
         printf("\nzadane cislo knihy neexistuje, koncim smazani..");
     } else {
-        s--;
-        for(;s<(*pocetZaznamu);s++){
-            databaze[s] = databaze[s+1];
-        }
-        (*pocetZaznamu)--;
+        printf("\nrozhodly jste se smazat zaznam %d:",s);
+        tiskZaznamu(databaze->prvky[s-1]);
+        printf("\nje tohle spravne? [A/N]\n");
+        printf("zaznam %d bude smazan po ulozeni zmen",s);
+        databaze->prvky[s-1].jeSmazano=1;
     }
 }
 
@@ -107,20 +107,20 @@ void QSswap(KNIHA *a, KNIHA *b){
     *b=c;
 }
 
-int QSsortRok(KNIHA a[],int l,int r){
+int QSsortRok(KDATABAZE * a,int l,int r){
     int i=l;
-    int pVal=a[r].rokVydani;
+    int pVal=a->prvky[r].rokVydani;
     for(int j=l;j<r;j++){
-        if(a[j].rokVydani<=pVal){
-            QSswap(&a[j],&a[i]);
+        if(a->prvky[j].rokVydani<=pVal){
+            QSswap(&a->prvky[j],&a->prvky[i]);
             i++;
         }
     }
-    QSswap(&a[i],&a[r]);
+    QSswap(&a->prvky[i],&a->prvky[r]);
     return i;
 }
 
-void QSrecRok(KNIHA a[],int l, int r){
+void QSrecRok(KDATABAZE * a,int l, int r){
     if(l<r){
         int pivot = QSsortRok(a,l,r);
         QSrecRok(a,l,pivot-1);
@@ -128,29 +128,33 @@ void QSrecRok(KNIHA a[],int l, int r){
     }
 }
 
-void sortDatabazeRok(KNIHA a[],int size){
-    QSrecRok(a,0,size-1);
+void sortDatabazeRok(KDATABAZE * a){
+    QSrecRok(a,0,(a->pocetZaznamu-1));
 }
-/*
-void opravaZaznamu(KNIHA a[],int pocetZaznamu){
+
+void opravaZaznamu(KDATABAZE * databaze){
     int vyb;
     printf("\nzadejte cislo knihy, kterou chcete opravit: ");
     scanf("%d",&vyb);
-    if( (vyb<1) || ( vyb>(pocetZaznamu-1) ) ){
+    if( (vyb<1) || ( vyb>(databaze->pocetZaznamu) ) ){
         printf("\ncislo moc male nebo moc velke, rusim opravu..");
-        break;
     } else {
-        vyb--;
-        tiskZaznamu(a[vyb]);
+        printf("\nvybrali jste si opravit zaznam %d:", vyb);
+        tiskZaznamu(databaze->prvky[vyb-1]);
+        printf("\nje tohle spravne? [A/N] ");
         printf("\nzadejte postupne nove hodnoty knihy,");
-        printf("novy nazev: ");//doplnit
-            scanf("%255[^,]", a[].nazev);
-        printf("novy autor: ");
-        printf("novy pocet stran:");
-        printf("novy rok vydani: ");
+        printf("\nnovy nazev: ");//doplnit
+            scanf(" %255s", databaze->prvky[vyb-1].nazev);
+        printf("\nnovy autor: ");
+            scanf(" %255s", databaze->prvky[vyb-1].autor);
+        printf("\nnovy zanr: ");
+            scanf(" %255s", databaze->prvky[vyb-1].zanr);
+        printf("\nnovy pocet stran:");
+            scanf(" %d", &databaze->prvky[vyb-1].pocetStran);
+        printf("\nnovy rok vydani: ");
+            scanf(" %d", &databaze->prvky[vyb-1].rokVydani);
     }
-}*/
-
+}
 
 int main(void)
 {
@@ -170,10 +174,12 @@ int main(void)
     }
 
   tiskDatabaze(&databaze);
-//  smazaniZaznamu(databaze,&pocetZaznamu);
-//  tiskDatabaze(databaze,pocetZaznamu);
-
-//  sortDatabazeRok(databaze,pocetZaznamu);
+  //smazaniZaznamu(&databaze);
+  //tiskDatabaze(&databaze);
+  sortDatabazeRok(&databaze);
+    tiskDatabaze(&databaze);
+  opravaZaznamu(&databaze);
+  tiskDatabaze(&databaze);
 //if if  tiskDatabaze(databaze,pocetZaznamu);
 
   //opravaZaznamu(databaze,&pocetZaznamu);
