@@ -16,6 +16,7 @@
 // #include <time.h>    // funkce time a dalsi pro praci s casem
 #define MAXZaznamu 512
 
+
 typedef struct{
     char nazev[256];
     char autor[256];
@@ -29,6 +30,8 @@ typedef struct{
     KNIHA prvky[MAXZaznamu];
     int pocetZaznamu;
 } KDATABAZE;
+
+void smazaniZaznamu(KDATABAZE*databaze);
 
 void tiskZaznamu(KNIHA zaznam){
     printf("\n\tnazev: %s \n\tautor: %s \n\tzanr: %s \n\tpocet stran: %d \n\trok vydani: %d\n", zaznam.nazev, zaznam.autor, zaznam.zanr, zaznam.pocetStran, zaznam.rokVydani);
@@ -156,6 +159,43 @@ void opravaZaznamu(KDATABAZE * databaze){
     }
 }
 
+typedef void (*fcePtr)(KDATABAZE*);
+
+typedef struct{
+    char text[256];
+    char pismeno;
+    fcePtr funkce;
+} MPOLOZKA;
+
+
+void tiskMenu(MPOLOZKA menu[]){
+    for(int i=0; menu[i].funkce!=NULL;i++){
+        printf("\n%s %c",menu[i].text,menu[i].pismeno);
+    }
+}
+
+void menuVolba(MPOLOZKA menu[], KDATABAZE * databaze){
+
+    char c;
+    int konec = 0;
+    do{
+        tiskMenu(menu);
+        scanf(" %c",&c);
+        printf("%c",c);
+        if(c=='Q'){
+            konec=1;
+        }
+        for(int i=0; menu[i].funkce!=NULL;i++){
+            if(c==menu[i].pismeno){
+                menu[i].funkce(databaze);
+            }
+        }
+    }while(konec==0);
+}
+
+
+
+
 int main(void)
 {
   printf("ahoj");
@@ -173,13 +213,20 @@ int main(void)
     return 1;
     }
 
-  tiskDatabaze(&databaze);
+    MPOLOZKA menu[]= {
+    {.text="tisk databaze", .pismeno='T', .funkce=tiskDatabaze},
+    {.text="smazani zaznamu",.pismeno='D',.funkce=smazaniZaznamu},
+    {.text="0",.pismeno='0',.funkce=NULL},
+    };
+
+    menuVolba(menu,&databaze);
+  //tiskDatabaze(&databaze);
   //smazaniZaznamu(&databaze);
   //tiskDatabaze(&databaze);
-  sortDatabazeRok(&databaze);
-    tiskDatabaze(&databaze);
-  opravaZaznamu(&databaze);
-  tiskDatabaze(&databaze);
+  //sortDatabazeRok(&databaze);
+    //tiskDatabaze(&databaze);
+  //opravaZaznamu(&databaze);
+  //tiskDatabaze(&databaze);
 //if if  tiskDatabaze(databaze,pocetZaznamu);
 
   //opravaZaznamu(databaze,&pocetZaznamu);
