@@ -9,13 +9,12 @@
 #include <stdlib.h>
 // #include <string.h>  // pro praci s textovymi retezci
 #include <stdbool.h> // pro praci s typem bool a konstantami true a false
-// #include <ctype.h>   // isalpha, isspace, islower, isupper, ...
+#include <ctype.h>   // isalpha, isspace, islower, isupper, ...
 // #include <math.h>    // funkce z matematicke knihovny
 // #include <float.h>   // konstanty pro racionalni typy DBL_MAX, DBL_DIG, ...
 // #include <limits.h>  // konstanty pro celociselne typy INT_MAX, INT_MIN, ...
 // #include <time.h>    // funkce time a dalsi pro praci s casem
 #define MAXZaznamu 512
-
 
 typedef struct{
     char nazev[256];
@@ -31,7 +30,19 @@ typedef struct{
     int pocetZaznamu;
 } KDATABAZE;
 
-void smazaniZaznamu(KDATABAZE*databaze);
+char ziskVolby(char * text){
+    printf("%s",text);
+    char c;
+    scanf(" %c",&c);
+    c = toupper(c);
+    return c;
+}
+
+void stiskneteEnter(void){
+    printf("\nstistknete enter pro vraceni k menu...");
+    getchar();
+    while( getchar()!= '\n');
+}
 
 void tiskZaznamu(KNIHA zaznam){
     printf("\n\tnazev: %s \n\tautor: %s \n\tzanr: %s \n\tpocet stran: %d \n\trok vydani: %d\n", zaznam.nazev, zaznam.autor, zaznam.zanr, zaznam.pocetStran, zaznam.rokVydani);
@@ -62,14 +73,13 @@ void tiskDatabaze(KDATABAZE * databaze){
         printf("\n\t%d knih v databazi\n",databaze->pocetZaznamu);
         break;
     }
+    stiskneteEnter();
 }
 
 int nacteniDatabaze(FILE *f, KDATABAZE * databaze){
     databaze->pocetZaznamu = 0;
-    printf("zacalo nacteni databaze");
         int e; KNIHA temp;
         while((e=fscanf(f,"%255[^,], %255[^,], %255[^,], %d, %d\n", temp.nazev, temp.autor, temp.zanr, &temp.pocetStran, &temp.rokVydani))==5){
-            printf("%d",e);
             temp.jeSmazano = 0;
             databaze->pocetZaznamu++;
             if((databaze->pocetZaznamu)>MAXZaznamu){
@@ -91,17 +101,24 @@ int nacteniDatabaze(FILE *f, KDATABAZE * databaze){
 
 void smazaniZaznamu(KDATABAZE * databaze){
     int s;
+    char anoNe;
     printf("zadejte cislo knihy v zaznamu, ktery chcete smazat: ");
     scanf("%d",&s);
     if( (s<1) || (s>(databaze->pocetZaznamu)) ){
-        printf("\nzadane cislo knihy neexistuje, koncim smazani..");
+        printf("\nzadane cislo knihy neexistuje, koncim mazani..\n");
     } else {
-        printf("\nrozhodly jste se smazat zaznam %d:",s);
+        printf("\nrozhodly jste se smazat zaznam %d:\n",s);
         tiskZaznamu(databaze->prvky[s-1]);
-        printf("\nje tohle spravne? [A/N]\n");
-        printf("zaznam %d bude smazan po ulozeni zmen",s);
+        anoNe = ziskVolby("\nje tohle spravne? [A/N] ");
+        if(anoNe!='A'){
+            printf("koncim mazani");
+        } else {
+        printf("\nzaznam %d bude smazan po ulozeni zmen",s);
         databaze->prvky[s-1].jeSmazano=1;
+        }
     }
+    //pro vraceni k menu
+    stiskneteEnter();
 }
 
 void QSswap(KNIHA *a, KNIHA *b){
@@ -137,26 +154,33 @@ void sortDatabazeRok(KDATABAZE * a){
 
 void opravaZaznamu(KDATABAZE * databaze){
     int vyb;
-    printf("\nzadejte cislo knihy, kterou chcete opravit: ");
+    char anoNe;
+    printf("zadejte cislo knihy, kterou chcete opravit: ");
     scanf("%d",&vyb);
     if( (vyb<1) || ( vyb>(databaze->pocetZaznamu) ) ){
         printf("\ncislo moc male nebo moc velke, rusim opravu..");
     } else {
         printf("\nvybrali jste si opravit zaznam %d:", vyb);
         tiskZaznamu(databaze->prvky[vyb-1]);
-        printf("\nje tohle spravne? [A/N] ");
+        anoNe = ziskVolby("\nje tohle spravne? [A/N] ");
+        if(anoNe!='A'){
+            printf("koncim mazani.. \n");
+        } else {
         printf("\nzadejte postupne nove hodnoty knihy,");
-        printf("\nnovy nazev: ");//doplnit
+        printf("\nnovy nazev: ");
             scanf(" %255s", databaze->prvky[vyb-1].nazev);
         printf("\nnovy autor: ");
             scanf(" %255s", databaze->prvky[vyb-1].autor);
         printf("\nnovy zanr: ");
             scanf(" %255s", databaze->prvky[vyb-1].zanr);
-        printf("\nnovy pocet stran:");
+        printf("\nnovy pocet stran: ");
             scanf(" %d", &databaze->prvky[vyb-1].pocetStran);
         printf("\nnovy rok vydani: ");
             scanf(" %d", &databaze->prvky[vyb-1].rokVydani);
+        printf("\nzaznam bude zmenen po ulozeni");
+        }
     }
+    stiskneteEnter();
 }
 
 typedef void (*fcePtr)(KDATABAZE*);
@@ -167,34 +191,31 @@ typedef struct{
     fcePtr funkce;
 } MPOLOZKA;
 
-
 void tiskMenu(MPOLOZKA menu[]){
     for(int i=0; menu[i].funkce!=NULL;i++){
-        printf("\n%s %c",menu[i].text,menu[i].pismeno);
+        printf("[%c] %s\n", menu[i].pismeno, menu[i].text);
     }
+    printf("[Q] konec programu");
 }
 
-void menuVolba(MPOLOZKA menu[], KDATABAZE * databaze){
-
+void menuVolba(MPOLOZKA menu[], KDATABAZE * databaze, char nadpisek[]){
     char c;
-    int konec = 0;
     do{
+        printf("\033[1;1H\e[2J");
+        printf("%s\n",nadpisek);
         tiskMenu(menu);
-        scanf(" %c",&c);
-        printf("%c",c);
+        c = ziskVolby("\n\nzadejte vasi volbu: ");
         if(c=='Q'){
-            konec=1;
+            break;
         }
         for(int i=0; menu[i].funkce!=NULL;i++){
             if(c==menu[i].pismeno){
+                printf("\n");
                 menu[i].funkce(databaze);
             }
         }
-    }while(konec==0);
+    }while(true);
 }
-
-
-
 
 int main(void)
 {
@@ -216,20 +237,18 @@ int main(void)
     MPOLOZKA menu[]= {
     {.text="tisk databaze", .pismeno='T', .funkce=tiskDatabaze},
     {.text="smazani zaznamu",.pismeno='D',.funkce=smazaniZaznamu},
+    {.text="oprava zaznamu",.pismeno='O',.funkce=opravaZaznamu},
     {.text="0",.pismeno='0',.funkce=NULL},
     };
 
-    menuVolba(menu,&databaze);
-  //tiskDatabaze(&databaze);
-  //smazaniZaznamu(&databaze);
-  //tiskDatabaze(&databaze);
-  //sortDatabazeRok(&databaze);
-    //tiskDatabaze(&databaze);
-  //opravaZaznamu(&databaze);
-  //tiskDatabaze(&databaze);
-//if if  tiskDatabaze(databaze,pocetZaznamu);
-
-  //opravaZaznamu(databaze,&pocetZaznamu);
-  //tiskDatabaze(databaze,pocetZaznamu);
+    menuVolba(menu,&databaze,"DATABAZE KNIH V1:");
+    /*
+    todo:
+    add sorting by year and pagecount
+    add searching
+    add saving
+    sort functions into headers
+    move functions under main and make function pointers
+    */
   return 0;
 }
