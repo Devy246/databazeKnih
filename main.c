@@ -16,6 +16,10 @@
 // #include <time.h>    // funkce time a dalsi pro praci s casem
 #define MAXZaznamu 512
 
+void dostanInt(int * i){
+    scanf(" %d",i);
+    while(getchar()!='\n');
+}
 typedef struct{
     char nazev[256];
     char autor[256];
@@ -99,22 +103,31 @@ int nacteniDatabaze(FILE *f, KDATABAZE * databaze){
 
 }
 
-void smazaniZaznamu(KDATABAZE * databaze){
+void smazaniObnovaZaznamu(KDATABAZE * databaze){
     int s;
     char anoNe;
-    printf("zadejte cislo knihy v zaznamu, ktery chcete smazat: ");
-    scanf("%d",&s);
+    printf("zadejte cislo knihy v zaznamu, ktery chcete smazat/obnovit: ");
+    dostanInt(&s);
     if( (s<1) || (s>(databaze->pocetZaznamu)) ){
         printf("\nzadane cislo knihy neexistuje, koncim mazani..\n");
     } else {
-        printf("\nrozhodly jste se smazat zaznam %d:\n",s);
-        tiskZaznamu(databaze->prvky[s-1]);
+        if(databaze->prvky[s-1].jeSmazano==1){
+            printf("\nrozhodly jste se obnovit zaznam %d:\n",s);
+        } else {
+            printf("\nrozhodly jste se smazat zaznam %d:\n",s);
+        }
+        printf("\n\tnazev: %s \n\tautor: %s \n\tzanr: %s \n\tpocet stran: %d \n\trok vydani: %d\n", databaze->prvky[s-1].nazev, databaze->prvky[s-1].autor, databaze->prvky[s-1].zanr, databaze->prvky[s-1].pocetStran, databaze->prvky[s-1].rokVydani);
+
         anoNe = ziskVolby("\nje tohle spravne? [A/N] ");
         if(anoNe!='A'){
-            printf("koncim mazani");
+            printf("koncim mazani/obnovu");
         } else {
-        printf("\nzaznam %d bude smazan po ulozeni zmen",s);
-        databaze->prvky[s-1].jeSmazano=1;
+            databaze->prvky[s-1].jeSmazano=!databaze->prvky[s-1].jeSmazano;
+            if(databaze->prvky[s-1].jeSmazano==1){
+            printf("\nzaznam %d bude smazan po ulozeni zmen",s);
+            } else {
+            printf("\nzaznam %d bude obnoven po ulozeni zmen",s);
+            }
         }
     }
     //pro vraceni k menu
@@ -152,6 +165,20 @@ void sortDatabazeRok(KDATABAZE * a){
     QSrecRok(a,0,(a->pocetZaznamu-1));
 }
 
+void dostanString(char * string){
+    int zmena=0;
+    scanf(" %255[^\n]", string);
+        for(int i=0;string[i]!='\0';i++){
+            if(string[i]==','){
+                string[i]=' ';
+                zmena=1;
+            }
+        }
+    if(zmena==1){
+        printf("carky byly premeneny na mezery\n");
+    }
+}
+
 void opravaZaznamu(KDATABAZE * databaze){
     int vyb;
     char anoNe;
@@ -168,18 +195,68 @@ void opravaZaznamu(KDATABAZE * databaze){
         } else {
         printf("\nzadejte postupne nove hodnoty knihy,");
         printf("\nnovy nazev: ");
-            scanf(" %255s", databaze->prvky[vyb-1].nazev);
+            dostanString(databaze->prvky[vyb-1].nazev);
         printf("\nnovy autor: ");
-            scanf(" %255s", databaze->prvky[vyb-1].autor);
+            dostanString(databaze->prvky[vyb-1].autor);
         printf("\nnovy zanr: ");
-            scanf(" %255s", databaze->prvky[vyb-1].zanr);
+            dostanString(databaze->prvky[vyb-1].zanr);
         printf("\nnovy pocet stran: ");
-            scanf(" %d", &databaze->prvky[vyb-1].pocetStran);
+            dostanInt(&databaze->prvky[vyb-1].pocetStran);
         printf("\nnovy rok vydani: ");
-            scanf(" %d", &databaze->prvky[vyb-1].rokVydani);
-        printf("\nzaznam bude zmenen po ulozeni");
+            dostanInt(&databaze->prvky[vyb-1].rokVydani);
+        printf("\nzaznam bude zmenen po ulozeni zmen");
         }
     }
+    stiskneteEnter();
+}
+
+
+void novyZaznam(KDATABAZE *databaze){
+    printf("zadejte postupne hodnoty nove knihy,");
+        printf("\nnovy nazev: ");
+            dostanString(databaze->prvky[databaze->pocetZaznamu].nazev);
+        printf("\nnovy autor: ");
+            dostanString(databaze->prvky[databaze->pocetZaznamu].autor);
+        printf("\nnovy zanr: ");
+            dostanString(databaze->prvky[databaze->pocetZaznamu].zanr);
+        printf("\nnovy pocet stran: ");
+            dostanInt(&databaze->prvky[databaze->pocetZaznamu].pocetStran);
+        printf("\nnovy rok vydani: ");
+            dostanInt(&databaze->prvky[databaze->pocetZaznamu].rokVydani);
+        printf("\nzaznam bude zmenen po ulozeni zmen");
+        (databaze->pocetZaznamu)++;
+}
+
+void ulozZmeny(KDATABAZE * databaze){
+
+  FILE * f = fopen("test3.txt","w");
+  if(f==NULL){
+        printf("databaze se nedala ulozit, koncim s ulozenim zmen..");
+        fclose(f);
+    }
+
+    for(int i=0;i<(databaze->pocetZaznamu);i++){
+        if(databaze->prvky[i].jeSmazano==0){
+        fprintf(f,"%s, %s, %s, %d, %d\n", databaze->prvky[i].nazev, databaze->prvky[i].autor, databaze->prvky[i].zanr, databaze->prvky[i].pocetStran, databaze->prvky[i].rokVydani);
+        }
+    }
+    fclose(f);
+
+
+    FILE * F2 = fopen("test3.txt","r");
+    if(F2==NULL){
+        printf("databaze se nedala znovu nacist..");
+        fclose(f);
+        goto esIstOverFurMich;
+    }
+  int err = nacteniDatabaze(f,&databaze);
+    fclose(f);
+    if(err!=0){
+    return 1;
+    }
+
+
+    printf("ulozeno sefe");
     stiskneteEnter();
 }
 
@@ -217,11 +294,12 @@ void menuVolba(MPOLOZKA menu[], KDATABAZE * databaze, char nadpisek[]){
     }while(true);
 }
 
+
 int main(void)
 {
   printf("ahoj");
   KDATABAZE databaze;
-  FILE * f = fopen("test2.txt","rw");
+  FILE * f = fopen("test2.txt","r");
 
   if(f==NULL){
         printf("databaze se nedala nacist, nechyby vam nahodou databaze? koncim..");
@@ -236,19 +314,27 @@ int main(void)
 
     MPOLOZKA menu[]= {
     {.text="tisk databaze", .pismeno='T', .funkce=tiskDatabaze},
-    {.text="smazani zaznamu",.pismeno='D',.funkce=smazaniZaznamu},
+    {.text="smazani/obnova zaznamu",.pismeno='D',.funkce=smazaniObnovaZaznamu},
     {.text="oprava zaznamu",.pismeno='O',.funkce=opravaZaznamu},
+    {.text="novy zaznam",.pismeno='N',.funkce=novyZaznam},
+    {.text="ulozit zmeny",.pismeno='U',.funkce=ulozZmeny},
     {.text="0",.pismeno='0',.funkce=NULL},
     };
 
     menuVolba(menu,&databaze,"DATABAZE KNIH V1:");
     /*
     todo:
-    add sorting by year and pagecount
-    add searching
+    add adding
+    add sorting (by year and pagecount)
+    add searching (by year and pagecount)
     add saving
+    add summing
     sort functions into headers
     move functions under main and make function pointers
     */
+
+
+    //kamikaze
+    esIstOverFurMich:
   return 0;
 }
