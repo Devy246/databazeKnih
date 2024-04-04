@@ -32,8 +32,13 @@ TODO:
       OR returns order (-1,O,1)
 
 todo:
-  make saving function
   make compare function
   put compare function in sorting function - multiple sorts
   put compare function in searching function - multiple searches
+
+
+  compare func:
+    returns which is bigger, or if the same
+    search func: if same, print
+    ordering func: fuck if i know
   

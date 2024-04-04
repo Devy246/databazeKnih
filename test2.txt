@@ -60,5 +60,3 @@ The Gruffalo, Julia Donaldson, Children's, 32, 1999
 Green Eggs and Ham, Dr. Seuss, Children's, 62, 1960
 Where the Wild Things Are, Maurice Sendak, Children's, 37, 1963
 Goodnight Moon, Margaret Wise Brown, Children's, 30, 1947
-The Giving Tree, Shel Silverstein, Children's, 64, 1964
-The Very Hungry Caterpillar, Eric Carle, Children's, 32, 1969

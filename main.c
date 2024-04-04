@@ -39,13 +39,14 @@ char ziskVolby(char * text){
     char c;
     scanf(" %c",&c);
     c = toupper(c);
+    while(getchar()!='\n');
+
     return c;
 }
 
 void stiskneteEnter(void){
     printf("\nstistknete enter pro vraceni k menu...");
     getchar();
-    while( getchar()!= '\n');
 }
 
 void tiskZaznamu(KNIHA zaznam){
@@ -210,7 +211,6 @@ void opravaZaznamu(KDATABAZE * databaze){
     stiskneteEnter();
 }
 
-
 void novyZaznam(KDATABAZE *databaze){
     printf("zadejte postupne hodnoty nove knihy,");
         printf("\nnovy nazev: ");
@@ -229,7 +229,7 @@ void novyZaznam(KDATABAZE *databaze){
 
 void ulozZmeny(KDATABAZE * databaze){
 
-  FILE * f = fopen("test3.txt","w");
+  FILE * f = fopen("test2.txt","w");
   if(f==NULL){
         printf("databaze se nedala ulozit, koncim s ulozenim zmen..");
         fclose(f);
@@ -243,18 +243,18 @@ void ulozZmeny(KDATABAZE * databaze){
     fclose(f);
 
 
-    FILE * F2 = fopen("test3.txt","r");
-    if(F2==NULL){
+    FILE * f2 = fopen("test2.txt","r");
+    if(f2==NULL){
         printf("databaze se nedala znovu nacist..");
-        fclose(f);
-        goto esIstOverFurMich;
+        fclose(f2);
+        exit(100);
     }
-  int err = nacteniDatabaze(f,&databaze);
-    fclose(f);
+  int err = nacteniDatabaze(f2,databaze);
+    fclose(f2);
     if(err!=0){
-    return 1;
+        printf("databaze se nedala znovu nacist..");
+        exit(110);
     }
-
 
     printf("ulozeno sefe");
     stiskneteEnter();
@@ -294,10 +294,8 @@ void menuVolba(MPOLOZKA menu[], KDATABAZE * databaze, char nadpisek[]){
     }while(true);
 }
 
-
 int main(void)
 {
-  printf("ahoj");
   KDATABAZE databaze;
   FILE * f = fopen("test2.txt","r");
 
@@ -324,17 +322,13 @@ int main(void)
     menuVolba(menu,&databaze,"DATABAZE KNIH V1:");
     /*
     todo:
-    add adding
     add sorting (by year and pagecount)
-    add searching (by year and pagecount)
-    add saving
+    add searching - multiple choices, linear
     add summing
-    sort functions into headers
+    sort functions into headers - database and menu
     move functions under main and make function pointers
     */
 
 
-    //kamikaze
-    esIstOverFurMich:
   return 0;
 }
