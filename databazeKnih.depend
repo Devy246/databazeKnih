@@ -1,10 +1,28 @@
 # depslib dependency file v1.0
-1712244870 source:/home/dejv/Codeblocks/4G/databazeKnih/main.c
+1712425097 source:/home/dejv/Codeblocks/4G/databazeKnih/main.c
 	"gvid.h"
 	<stdio.h>
 	<stdlib.h>
+	<string.h>
+	<strings.h>
 	<stdbool.h>
 	<ctype.h>
+	"databazeK.h"
+	"menicko.h"
 
 1711038010 /home/dejv/Codeblocks/4G/databazeKnih/gvid.h
+
+1712232420 /home/dejv/Codeblocks/4G/databazeKnih/databazeK.h
+	<stdbool.h>
+
+1712245222 /home/dejv/Codeblocks/4G/databazeKnih/menicko.h
+	<stdbool.h>
+	"databazeK.h"
+
+1712245205 source:/home/dejv/Codeblocks/4G/databazeKnih/menicko.c
+	<stdio.h>
+	<stdbool.h>
+	<ctype.h>
+	"menicko.h"
+	"databazeK.h"
 
