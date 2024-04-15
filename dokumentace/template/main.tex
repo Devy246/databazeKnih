@@ -1,0 +1,155 @@
+% Dokument je překládaný XeLaTeXem
+
+
+% Je použita šablona gvidprojekt, kterou tvoří soubor gvidprojekt.cls.
+\documentclass{gvidprojekt}
+
+% Tohle se v xelatexu NESMÍ používat!
+% \usepackage[czech]{babel}
+% \usepackage[latin2]{inputenc}
+% \usepackage[T1]{fontenc}
+
+
+% \setotherlanguage{english}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% Nastavení vlastností dokumentu
+% 
+% Pokud ti nevyhovuje výchozí vlastnost, odkomentuj příslušný
+% řádek a změň hodnotu.
+% Hodnoty všech vlastností jsou přístupné přes makra 
+% \projvlastnost, tj. hodnota title je přístupná přes \projtitle, 
+% logo přes \projlogo atd.
+\projectinfo{%
+    % sem napiš název své práce - povinné
+    title={Projekt práce se soubory/databáze},
+%
+    % podtitul - nepovinné
+    %subtitle={verze \templateversion{}},
+% 
+    % podpis - povinné
+    author={David Horák},
+% 
+    % třída, do které autor v tomto roce patří - doporučené
+    authorsclass=4.G,         
+% 
+    % Typ práce (Ročníkový, Maturitní, Pololetní, Školní atd. projekt) - povinné
+    type={Pololetní projekt}, 
+% 
+    % Předmět(y), pro který(é) je práce tvořena - povinné
+    course={Programování}, 
+% 
+    % Pokud chceš uvést jiné, než dnešní datum
+    % date=\today, 
+% 
+    % Prohlášení na začátku dokumentu - nepovinné, pokud nepoužiješ \makedeclaration
+    declaration={Prohlašuji, že jsem tuto práci vytvořil samostatně a poctivě jsem uvedl všechny zdroje, ze kterých jsem vycházel.},
+% 
+    % Abstrakt práce - nepovinné, pokud nepoužiješ \makeabstract
+    abstract={Tato práce se zabývá tím, jak psát ročníkové, maturitní, pololetní a podobné středoškolské projekty. V práci jsou nastíněny zásady tvorby strukturovaného dokumentu a shrnuta základní typografická pravidla. Dokument se také stručně zabývá problematikou používání literatury a citační etiky.},
+% 
+    % Seznam klíčových slov - doporučené
+    keywords={slovo 1, pak druhé třetí atd.}, 
+% 
+    % Nepovinné, lze zakomentovat
+    % acknowledgment={Děkuji svému školiteli, Ing. Donaldu Kačerovi, Ph.D., za cenné rady a celému lidstvu za všechny ty ryby.} 
+% 
+    % Pokud se změní název školy...
+    % school={Gymnázium Brno, Vídeňská, příspěvková organizace}, 
+% 
+    % Jde změnit logo školy použité na titulní straně.
+    % logo={img/logo-gvid-blue-40mm.pdf}, 
+% 
+    % Jde změnit ikonu školy. Aktuálně se nepoužívá, ale je přístupná příkazem \projicon.
+    % icon={img/icon-gvid-blue-40mm.pdf}, 
+}
+
+
+
+
+
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% Nastavení balíku biblatex pro citace podle ISO 690.
+
+% Tohle je citování harvardským systémem: (Martinek, 2002)
+% Cituje se příkazem \parencite{štítek}
+\usepackage[style=iso-authoryear]{biblatex}
+
+% Tzv. Vancouverský systém: [1]
+% Pro technické dokumenty nejpraktičtější styl.
+% Citovat přednostně příkazem \cite{}.
+% U \parencite{} by docházelo k záměně s číslováním vzorců.
+% Příkazem \supercite{} se místo odkazu do seznamu literatury, 
+% vysází poznámka pod čarou
+% \usepackage[style=iso-numeric]{biblatex}
+
+% Starý známý BibTeXový formát: [Aut12]
+% Citovat lze pomocí \cite{} i \parencite{}. 
+% Mají stejné výsledky - v hranatých závorkách
+% \usepackage[style=iso-alphabetic]{biblatex}
+
+% Dloooooouhý formát citování: (Hoftich et al., Biblatexstyle for ISO 690 standard)
+% Použití \cite{} je nepřehledné, používat \parencite{}.
+% Možná si na tohle potrpí na fildě, nám technikům se z toho dělají
+% na čele modřiny ve tvaru dlaně...
+% \usepackage[style=iso-authortitle]{biblatex}
+
+% Tohle nahrazuje příkaz \bibliography z BibTeXu
+% Může se přidat více souborů se zdroji.
+\addbibresource{bibliografie.bib}
+
+
+
+
+
+
+
+
+% Každou kapitolu mám v jiném zdrojáku a takto je můžu snadno vypínat - stačí zakomentovat příslušný řádek.
+\includeonly{%
+rp01-zadani,%
+rp02-reseni,%
+}
+
+
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 
+% Vlastní tělo dokumentu
+\begin{document}
+
+% Vygenerujeme titulní stranu, abstrakt a prohlášení
+\maketitle
+%\makeabstract
+\makedeclaration
+
+% Automatické generování obsahu (je třeba překládat 2x - Overleaf zajistí sám)
+\begin{KeepFromToc} % Tohle je tu kvůli stylu memoir, který standardně zahrnuje nadpis Obsah do tabulky v Obsahu...
+  \tableofcontents
+\end{KeepFromToc}
+
+% Vkládání jednotlivých kapitol. Pokud chci přeházet pořadí kapitol, stačí přeházet jednotlivé řádky. 
+% Jde použít
+% \include{soubor} - vynutí \newpage, spolupracuje s \includeonly
+% \input{soubor}   - nevynucuje \newpage, nevšímá si \includeonly
+\include{rp01-zadani}
+\include{rp02-reseni}
+
+
+% Kdybych chtěl sázet přílohy, tak například takto.
+% \appendix % Mění číslování kapitol - Příloha A, Příloha B, ...
+% \include{dodatek01}
+
+
+% % % % % % % % % % % % % % % % 
+% Seznam použité literatury
+
+% Balík biblatex používá tento příkaz, případně s parametry:
+% \printbibliography
+\printbibliography[title={Seznam použité literatury}]
+% \printbibliography[title={Reference bibliography},heading={bibnumbered}]
+
+\end{document}
