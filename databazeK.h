@@ -1,7 +1,6 @@
 #ifndef DATABAZEK_H_INCLUDED
 #define DATABAZEK_H_INCLUDED
 #include <stdbool.h>
-#define MAXZaznamu 512
 
 typedef struct{
     char nazev[256];
@@ -13,7 +12,7 @@ typedef struct{
 } KNIHA;
 
 typedef struct{
-    KNIHA prvky[MAXZaznamu];
+    KNIHA *prvky;
     int pocetZaznamu;
 } KDATABAZE;
 

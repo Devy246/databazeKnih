@@ -15,6 +15,5 @@ typedef struct{
 
 void tiskMenu(MPOLOZKA menu[]);
 
-void menuVolba(MPOLOZKA menu[], KDATABAZE * databaze, char nadpisek[]);
-
+void menuVolba(MPOLOZKA menu[], KDATABAZE * databaze, char nadpisek[], char podpisek[],bool * neulozeneZmeny);
 #endif // MENICKO_H_INCLUDED

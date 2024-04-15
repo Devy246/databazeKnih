@@ -21,12 +21,17 @@ void tiskMenu(MPOLOZKA menu[]){
     printf("[Q] konec programu");
 }
 
-void menuVolba(MPOLOZKA menu[], KDATABAZE * databaze, char nadpisek[]){
+void menuVolba(MPOLOZKA menu[], KDATABAZE * databaze, char nadpisek[], char podpisek[],bool * neulozeneZmeny){
     char c;
     do{
         printf("\033[1;1H\e[2J");
         printf("%s\n",nadpisek);
+        printf("%s",podpisek);
+        if(*neulozeneZmeny==1)
+            printf("*");
+        printf("\n###################################\n");
         tiskMenu(menu);
+
         c = ziskVolby("\n\nzadejte vasi volbu: ");
         if(c=='Q'){
             break;

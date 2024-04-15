@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1712425097 source:/home/dejv/Codeblocks/4G/databazeKnih/main.c
+1713221896 source:/home/dejv/Codeblocks/4G/databazeKnih/main.c
 	"gvid.h"
 	<stdio.h>
 	<stdlib.h>
@@ -9,20 +9,32 @@
 	<ctype.h>
 	"databazeK.h"
 	"menicko.h"
+	"sortDatabaze.h"
 
 1711038010 /home/dejv/Codeblocks/4G/databazeKnih/gvid.h
 
-1712232420 /home/dejv/Codeblocks/4G/databazeKnih/databazeK.h
+1713031450 /home/dejv/Codeblocks/4G/databazeKnih/databazeK.h
 	<stdbool.h>
 
-1712245222 /home/dejv/Codeblocks/4G/databazeKnih/menicko.h
+1713045215 /home/dejv/Codeblocks/4G/databazeKnih/menicko.h
 	<stdbool.h>
 	"databazeK.h"
 
-1712245205 source:/home/dejv/Codeblocks/4G/databazeKnih/menicko.c
+1713045204 source:/home/dejv/Codeblocks/4G/databazeKnih/menicko.c
 	<stdio.h>
 	<stdbool.h>
 	<ctype.h>
 	"menicko.h"
 	"databazeK.h"
+
+1713050749 /home/dejv/Codeblocks/4G/databazeKnih/sortDatabaze.h
+	<stdbool.h>
+	"databazeK.h"
+
+1713050920 source:/home/dejv/Codeblocks/4G/databazeKnih/sortDatabaze.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"databazeK.h"
+	<strings.h>
 
