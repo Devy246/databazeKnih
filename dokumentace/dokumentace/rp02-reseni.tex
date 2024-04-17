@@ -1,42 +1,42 @@
 \chapter{Návrh řešení}
 \section{Struktura databáze}
-Jelikož není v zadání specifikován formát databáze a počítáme s tím, že s databází 
+Jelikož není v~zadání specifikován formát databáze a~počítáme s~tím, že s~databází 
 bude pracovat pouze náš program, můžeme si vytvořit vlastní formát, který by vyhovoval naším potřebám. 
 Zde se hodí obyčejný textový soubor. Do něj budeme ukládat jednotlivé záznamy 
 na samostatný řádek, jednotlivé atributy záznamů budou oddělíme čárkou.
 \section{Struktura programu}
-Zadání požaduje velice málo dat v databázi (alespoň 20 prvků se třemi atributy). 
-Můžeme počítat s tím, že smíme celou databázi načíst do paměti počítače uživatele. 
-Poté uživatel pomocí několika funkcí může manipulovat s touto databází, než ji zase uloží do dříve 
+Zadání požaduje velice málo dat v~databázi (alespoň 20 prvků se třemi atributy). 
+Můžeme počítat s~tím, že smíme celou databázi načíst do paměti počítače uživatele. 
+Poté uživatel pomocí několika funkcí může manipulovat s~touto databází, než ji zase uloží do dříve 
 zmíněného souboru.
 \section{Ovládání programu}
-Program má umožnit uživateli přístup k několika funkcím pro manipulaci databáze. 
+Program má umožnit uživateli přístup k~několika funkcím pro manipulaci databáze. 
 Na tohle vytvoříme menu, ve kterém budou jednotlivé položky. Položky tohoto
-menu by obsahovali název funkce a korespondující písmeno pro zpuštění téhleté funkce.
+menu by obsahovali název funkce a~korespondující písmeno pro zpuštění téhleté funkce.
 \section{Nedostatky návrhu}
-Tento návrh má několik nedostatků. Atributy záznamu nemohou mít v sobě čárky (kvůli rozdělení atributů 
-v~souboru) a databáze je také teoreticky omezena velikostí paměti/swap souboru uživatelského počítače. 
+Tento návrh má několik nedostatků. Atributy záznamu nemohou mít v~sobě čárky (kvůli rozdělení atributů 
+v~souboru) a~databáze je také teoreticky omezena velikostí paměti/swap souboru uživatelského počítače. 
 \chapter{Řešení}
 \section{Databáze}
 Jako podmět mé databáze jsem si vybral knihy. Každý záznam má následující atributy: 
-Název, autor, žánr, rok vydání a počet stran. Seznam knih byl náhodně vybrán z těch, na které 
+Název, autor, žánr, rok vydání a~počet stran. Seznam knih byl náhodně vybrán z~těch, na které 
 jsem si vzpomněl.
 
-Informace o atributách knihy jsem našel na databazeknih.cz(CITACE). Rozhodl jsem napsat všechny 
-textové atributy v angličtině, jelikož program neumí zacházet s unicode písmenama.
+Informace o~atributách knihy jsem našel na databazeknih.cz \parencite{databazeknih.cz}. Rozhodl jsem napsat všechny 
+textové atributy v~angličtině, jelikož program neumí zacházet s~unicode písmenama.
 
 \section{Struktura kódu}
 \subsection{Základní datové struktury}
-Nejzákladnější datové struktury tohoto programu jsou definovány v \texttt{databazeK.h}. Struktura 
-\texttt{KNIHA} má 6 atributů. Tři 255 písmen dlouhé řetězce (název, autor a žánr), 2 celá čísla 
-(počet stran a rok vydání) a bool \texttt{jeSmazano} který říká, jestli je struktura smazaná. 
+Nejzákladnější datové struktury tohoto programu jsou definovány v~\texttt{databazeK.h}. Struktura 
+\texttt{KNIHA} má 6~atributů. Tři 255 písmen dlouhé řetězce (název, autor a~žánr), 2~celá čísla 
+(počet stran a~rok vydání) a~bool \texttt{jeSmazano} který říká, jestli je struktura smazaná. 
 
-Struktura \texttt{KDATABAZE} má dva atributy: Ukazatel \texttt{prvky} na strukturu \texttt{KNIHA} (pracuje s ním jako s polem) 
-a celé číslo \texttt{pocetZaznamu}, který ukládá aktuální počet prvků na který ukazatel může ukazovat.
+Struktura \texttt{KDATABAZE} má dva atributy: Ukazatel \texttt{prvky} na strukturu \texttt{KNIHA} (pracuje s~ním jako s~polem) 
+a~celé číslo \texttt{pocetZaznamu}, který ukládá aktuální počet prvků na který ukazatel může ukazovat.
 
 \subsection{Pomocné funkce}
 Pomocné funkce využívá většina ostatních funkcí, hlavně pro zisk vstupů od uživatele. 
-Jestli je požadovaný vstup velmi malý, tak tyhle funkce také vyčistí vstup. Jsou 4 pomocné funkce:
+Jestli je požadovaný vstup velmi malý, tak tyhle funkce také vyčistí vstup. Jsou 4~pomocné funkce:
 \begin{itemize}
   \item Funkce \texttt{dostanString} získa od uživatele 255 písmen dlouhý řetězec. 
   Pokud uživatel zadá řetězec, který obsahuje čárky, přemění čárky na mezery (kvůli formátu databáze).
@@ -48,78 +48,79 @@ Jestli je požadovaný vstup velmi malý, tak tyhle funkce také vyčistí vstup
 \end{itemize}
 
 \subsection{Menu}
-Menu programu je definováno v \texttt{menicko.c} a \texttt{menicko.h}. Pro vytvoření menu se zavolá funkce 
+Menu programu je definováno v~\texttt{menicko.c} a~\texttt{menicko.h}. Pro vytvoření menu se zavolá funkce 
 \texttt{menuVolba}, která má následující parametry: ukazatel na strukturu \texttt{KDATABAZE}, řetězec \texttt{nadpisek}, 
-řetěžec \texttt{podpisek}, bool \texttt{neulozeneZmeny} a pole struktur \texttt{MPOLOZKA}. 
+řetěžec \texttt{podpisek}, bool \texttt{neulozeneZmeny} a~pole struktur \texttt{MPOLOZKA}. 
 
-Struktura \texttt{MPOLOZKA} je jedna položka menu. Skládá se z řetězce \texttt{text}, písmena \texttt{pismeno} a ukazatelem 
+Struktura \texttt{MPOLOZKA} je jedna položka menu. Skládá se z~řetězce \texttt{text}, písmena \texttt{pismeno} a~ukazatelem 
 na funkci \texttt{funkce}. 
 
-když se zavolá funkce \texttt{menuVolba}, funkce vymaže konzoli a vytiskne \texttt{nadpisek} a \texttt{podpisek}, případně 
-hvězdičku jestli bool \texttt{neulozeneZmeny} se rovná 1. poté vytiskné jednotlivé položky a zavolá \texttt{ziskVolby}. 
-Po zisku písmena je porovná s písmenami položek menu, jestli se rovná, zavolá funkci té položky. Jestli získané 
-písmeno je Q, přestane cyklus a skončí funkce. Jestli se ničemu nerovná nic se nestane a cyklus zase začne. 
+když se zavolá funkce \texttt{menuVolba}, funkce vymaže konzoli a~vytiskne \texttt{nadpisek} a~\texttt{podpisek}, případně 
+hvězdičku jestli bool \texttt{neulozeneZmeny} se rovná~1. poté vytiskné jednotlivé položky a~zavolá \texttt{ziskVolby}. 
+Po zisku písmena je porovná s~písmenami položek menu, jestli se rovná, zavolá funkci té položky. Jestli získané 
+písmeno je Q, přestane cyklus a~skončí funkce. Jestli se ničemu nerovná nic se nestane a~cyklus zase začne. 
 
 \subsection{Hlavní funkce}
-Hlavní funkce, které mají jeden parametr ukazatele na \texttt{KDATABAZE} a jsou v nabídce menu jsou následující:
+Hlavní funkce, které mají jeden parametr ukazatele na \texttt{KDATABAZE} a~jsou v nabídce menu jsou následující:
 
 \begin{itemize}
   \item Funkce \texttt{otevriDatabazi} se optá uživatele, zda chce otevřít existující databázi nebo vytvořit novou. 
-  Přijme cestu na soubor od uživatele a podle dřívějšího rozhodnutí se pokusí ho otevřít s jiným oprávněním. Jestli 
-  to nepujde, zeptá se o novou cestu. Cesta se uloží do globální proměnné \texttt{cesta} se kterým budou pracovat jiné 
+  Přijme cestu na soubor od uživatele a~podle dřívějšího rozhodnutí se pokusí ho otevřít s~jiným oprávněním. Jestli 
+  to nepujde, zeptá se o~novou cestu. Cesta se uloží do globální proměnné \texttt{cesta} se kterým budou pracovat jiné 
   funkce. Jestliže už soubor existuje, načte z něj pomocí druhotné funkce \texttt{nacteniDatabaze} databázi.
-  \item Funkce \texttt{tiskDatabaze} vytiskne všechny položky v poli knih v databázi.
-  \item Funkce \texttt{Vyhledavani} přijme od uživatele řetězec s čísly 1 až 5, který určuje jakými atributy chce
+  \item Funkce \texttt{tiskDatabaze} vytiskne všechny položky v~poli knih v~databázi.
+  \item Funkce \texttt{Vyhledavani} přijme od uživatele řetězec s~čísly 1~až 5,~který určuje jakými atributy chce
   uživatel hledat (každé číslo koresponduje jednému atributu). Poté načte uživatelem vybrané hodnoty do vlastní
-  \texttt{KNIHA} struktury . Pak lineárně vyhledává rovnájící se knihy v databázi (samozřejmě jen těmi hodnotami, co specifikoval 
+  \texttt{KNIHA} struktury. Pak lineárně vyhledává rovnájící se knihy v databázi (samozřejmě jen těmi hodnotami, co specifikoval 
   uživatel).
-  \item Funkce \texttt{novyZaznam} realokuje pole \texttt{KNIHA} položek v \texttt{KDATABAZI} o jeden víc, načte od uživatele 
-  nové hodnoty a zvětší číslo texttt{pocetZaznamu} o jeden.
-  \item Funkce \texttt{opravaZaznamu} přijme číslo od uživatele, které koresponduje s položkou pole knih. Jestliže kniha existuje, 
+  \item Funkce \texttt{novyZaznam} realokuje pole \texttt{KNIHA} položek v~\texttt{KDATABAZI} o~jeden víc, načte od uživatele 
+  nové hodnoty a~zvětší číslo texttt{pocetZaznamu} o~jeden.
+  \item Funkce \texttt{opravaZaznamu} přijme číslo od uživatele, které koresponduje s~položkou pole knih. Jestliže kniha existuje, 
   načte od uživatele nové hodnoty knihy.
-  \item Funkce \texttt{smazaniObnovaZaznamu} přijme číslo knihy u které ma změnit bool \texttt{jeSmazano} na opačné znaménko. 
-  Položky, u kterých \texttt{jeSmazano} se rovná 1, nebudou při uložení do souboru napsány. 
-  \item Funkce \texttt{seradDatabazi} přijme od uživatele řetězec čísel 1 až 5, které korespondují k jednotlivým atributům 
+  \item Funkce \texttt{smazaniObnovaZaznamu} přijme číslo knihy u~které ma změnit bool \texttt{jeSmazano} na opačné znaménko. 
+  Položky, u~kterých \texttt{jeSmazano} se rovná~1, nebudou při uložení do souboru napsány. 
+  \item Funkce \texttt{seradDatabazi} přijme od uživatele řetězec čísel 1~až 5,~které korespondují k~jednotlivým atributům 
     knih, podle kterých bude řadit (čísla napsaná dřív budou mít prioritu). Také se zeptá uživatele, zda chce 
     seřadit soubor vzestupně nebo sestupně. Poté zavolá funkce, které jsou definované 
-    v \texttt{sortDatabaze.h} a \texttt{sortDatabaze.c}. Algoritmus k seřazení je quicksort. Funkce pro porovnání, zda je 
-    položka menší nebo větší k té, se kterou ji chceme porovnávat bere jako parametr řetězec daných atributů.
-  \item Funkce \texttt{souhrn} vytiskne na obrazovku celkový počet knih a stran a průmerný počet stran v databázi.
+    v~\texttt{sortDatabaze.h} a~\texttt{sortDatabaze.c}. Algoritmus k seřazení je quicksort. Funkce pro porovnání, zda je 
+    položka menší nebo větší k~té, se kterou ji chceme porovnávat bere jako parametr řetězec daných atributů.
+  \item Funkce \texttt{souhrn} vytiskne na obrazovku celkový počet knih a~stran aprůmerný počet stran v~databázi.
   \item Funkce \texttt{ulozZmeny} se zeptá uživatele jestli chce uložit danou databázi do stejného souboru nebo do jiného. 
-  Jestli si vybere do jiného, funkce se ho zeptá o novou cestu. Poté vypíše všechny položky databáze do souboru, pokud 
-  nejsou označené jako smazané. Nakonec znovu načte z toho souboru prvky zpět do pole. 
+  Jestli si vybere do jiného, funkce se ho zeptá o~novou cestu. Poté vypíše všechny položky databáze do souboru, pokud 
+  nejsou označené jako smazané. Nakonec znovu načte z~toho souboru prvky zpět do pole. 
 \end{itemize}
 
 \subsection{Sekundární funkce}
-Funkce, které volají hlavní funkce. Narozdíl od vedlejších funkcí mají většinou využití jenom u jedné funkce. 
+Funkce, které volají hlavní funkce. Narozdíl od vedlejších funkcí mají většinou využití jenom u~jedné funkce. 
 
 \begin{itemize}
-  \item Funkce \texttt{QSsortDat}, \texttt{QSsortRek}, \texttt{QSswap}, \texttt{QssortRozdel} a \texttt{JeVetsi} jsou všechny podfunkce 
-  funkce \texttt{seradDatabazi} a jsou definovány v souboru \texttt{sortDatabaze.h} a \texttt{sortDatabaze.c}. Jedná se o algoritmus 
+  \item Funkce \texttt{QSsortDat}, \texttt{QSsortRek}, \texttt{QSswap}, \texttt{QssortRozdel} a~\texttt{JeVetsi} jsou všechny podfunkce 
+  funkce \texttt{seradDatabazi} a~jsou definovány v~souboru \texttt{sortDatabaze.h} a~\texttt{sortDatabaze.c}. Jedná se o~algoritmus 
   quicksort. 
   
   \item Funkce \texttt{tiskMenu} je podfunkce pro funkci \texttt{menuVolba}. Vytiskne položky menu.
 
-  \item Funkce \texttt{vyhledat} a \texttt{rovnaSe} jsou podfunkce funkce \texttt{Vyhledavani}. Funkce \texttt{Vyhledavani} 
-  hlavně se stará o správný vstup od uživatele, \texttt{vyhledat} prochází databázi a \texttt{rovnaSe} vrací 0 pokud se 
+  \item Funkce \texttt{vyhledat} a~\texttt{rovnaSe} jsou podfunkce funkce \texttt{Vyhledavani}. Funkce \texttt{Vyhledavani} 
+  hlavně se stará o~správný vstup od uživatele, \texttt{vyhledat} prochází databázi a~\texttt{rovnaSe} vrací 0~pokud se 
   dvě položky rovnají.
 
   \item Funkce \texttt{tiskZaznamu} vytiskne jeden záznam na obrazovku. Tuhle funkci používá hlavně funkce \texttt{tiskDatabaze}. 
 
   \item Funkce \texttt{nacteniDatabaze} načte databázi ze souboru do paměti. Používá ji funkce \texttt{otevriDatabazi} 
-  a \texttt{ulozZmeny}. Vrací jiné číslo než 0 když nastala chyba. 
+  a~\texttt{ulozZmeny}. Vrací jiné číslo než 0~když nastala chyba. 
 
 \end{itemize}
 
-\section{Použité technologie a programovací jazyky}
-Program byl napsán v jazyce C jak bylo v zadání. Byl použit IDE Code::Blocks a tím i programy gcc, gdb a jiné. 
-Pro manuální úpravy databáze  a psaní dokumentace byl použit textový editor Neovim. Pro 
-správu verzí byl použit git a projekt byl uchován na platformě github.
+\section{Použité technologie a~programovací jazyky}
+Program byl napsán v~jazyce C~jak bylo v~zadání. Byl použit IDE Code::Blocks a~tím i~programy gcc, gdb a~jiné. 
+Pro manuální úpravy databáze a~psaní dokumentace byl použit textový editor Neovim. Pro 
+správu verzí byl použit git a~projekt byl uchován na platformě github.
 
-\section{Známé omezení a problémy}
-Některé známé problémy byly již zmíněny v kapitole návrhu. Jednotlivé textové položky databáze nesmí obsahovat v sobě 
-žádné čárky a unicode písmena. Teoreticky je program omezen velikostí paměti počítače. Také nemohou textové položky 
+\section{Známé omezení a~problémy}
+Některé známé problémy byly již zmíněny v~kapitole návrhu. Jednotlivé textové položky databáze nesmí obsahovat v~sobě 
+žádné čárky a~unicode písmena. Teoreticky je program omezen velikostí paměti počítače. Také nemohou textové položky 
 záznamu obsahovat víc jak 255 písmen. 
 
-
-
+\chapter{Závěr}
+Tento program umožňuje uživateli si vytvářet vlastní databáze knih dle své potřeby. Možné využití 
+programu je např. udržení si seznamu přečtených knih nebo nejlepších knih. Program je spíše určen pro vášnivé čtenáře.

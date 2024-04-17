@@ -16,5 +16,42 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{nyt/global//global/global}
+    \entry{databazeknih.cz}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=77692cd5224b2ccb3575f6c0dfd82b39}{%
+           family={databazeknih.cz},
+           familyi={d\bibinitperiod}}}%
+      }
+      \strng{namehash}{77692cd5224b2ccb3575f6c0dfd82b39}
+      \strng{fullhash}{77692cd5224b2ccb3575f6c0dfd82b39}
+      \strng{bibnamehash}{77692cd5224b2ccb3575f6c0dfd82b39}
+      \strng{authorbibnamehash}{77692cd5224b2ccb3575f6c0dfd82b39}
+      \strng{authornamehash}{77692cd5224b2ccb3575f6c0dfd82b39}
+      \strng{authorfullhash}{77692cd5224b2ccb3575f6c0dfd82b39}
+      \field{sortinit}{d}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{langid}{czech}
+      \field{title}{Knihy | Databáze Knih}
+      \field{urlday}{17}
+      \field{urlmonth}{4}
+      \field{urlyear}{2024}
+      \field{year}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.databazeknih.cz/knihy
+      \endverb
+      \verb{url}
+      \verb https://www.databazeknih.cz/knihy
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 

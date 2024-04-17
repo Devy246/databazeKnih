@@ -1,9 +1,14 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'main.blg'
-[81] biber:340> INFO - === Wed Apr 17, 2024, 03:41:39
-[97] Biber.pm:419> INFO - Reading 'main.bcf'
-[164] Biber.pm:979> INFO - Found 0 citekeys in bib section 0
-[192] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[192] bbl.pm:763> INFO - Output to main.bbl
-[192] Biber.pm:131> WARN - The file 'main.bcf' does not contain any citations!
-[193] Biber.pm:133> INFO - WARNINGS: 1
+[80] biber:340> INFO - === Wed Apr 17, 2024, 04:01:53
+[95] Biber.pm:419> INFO - Reading 'main.bcf'
+[162] Biber.pm:979> INFO - Found 1 citekeys in bib section 0
+[180] Biber.pm:4419> INFO - Processing section 0
+[190] Biber.pm:4610> INFO - Looking for bibtex file 'bibliografie.bib' for section 0
+[192] bibtex.pm:1713> INFO - LaTeX decoding ...
+[210] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliografie.bib'
+[248] UCollate.pm:68> INFO - Overriding locale 'cs-CZ' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[249] UCollate.pm:68> INFO - Overriding locale 'cs-CZ' defaults 'variable = shifted' with 'variable = non-ignorable'
+[249] Biber.pm:4239> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'cs-CZ'
+[254] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[255] bbl.pm:763> INFO - Output to main.bbl

@@ -13,5 +13,10 @@
 \contentsline {subsection}{Menu}{5}{section*.4}%
 \contentsline {subsection}{Hlavní funkce}{5}{section*.5}%
 \contentsline {subsection}{Sekundární funkce}{6}{section*.6}%
-\contentsline {section}{\numberline {3.3}Použité technologie a programovací jazyky}{6}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Známé omezení a problémy}{6}{section.3.4}%
+\contentsline {section}{\numberline {3.3}Použité technologie a~programovací jazyky}{6}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Známé omezení a~problémy}{6}{section.3.4}%
+\contentsline {chapter}{\chapternumberline {4}Závěr}{7}{chapter.4}%
+\contentsline {chapter}{Seznam použité literatury}{8}{section*.8}%
+\selectlanguage *[]{czech}
+\selectlanguage *[babelshorthands=false,splithyphens=true,vlna=true]{czech}
+\selectlanguage *[]{czech}
