@@ -48,6 +48,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="menicko.h" />
+		<Unit filename="sortDatabaze.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="sortDatabaze.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

@@ -2,45 +2,39 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="databazeK.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="menicko.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="78" topLine="0" />
+			<Cursor1 position="18" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="menicko.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sortDatabaze.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="900" topLine="21" />
+			<Cursor1 position="103" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sortDatabaze.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3186" topLine="111" />
+			<Cursor1 position="108" topLine="0" />
 		</Cursor>
-		<Folding>
-			<Collapse line="182" />
-			<Collapse line="186" />
-			<Collapse line="194" />
-			<Collapse line="208" />
-			<Collapse line="249" />
-			<Collapse line="261" />
-			<Collapse line="330" />
-			<Collapse line="360" />
-			<Collapse line="403" />
-			<Collapse line="439" />
-			<Collapse line="457" />
-			<Collapse line="488" />
-			<Collapse line="502" />
-			<Collapse line="508" />
-			<Collapse line="539" />
-			<Collapse line="562" />
-			<Collapse line="587" />
-			<Collapse line="594" />
-			<Collapse line="599" />
-		</Folding>
 	</File>
 	<File name="menicko.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="379" topLine="0" />
+			<Cursor1 position="251" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="691" topLine="33" />
+		</Cursor>
+		<Folding>
+			<Collapse line="593" />
+			<Collapse line="603" />
+			<Collapse line="608" />
+		</Folding>
+	</File>
+	<File name="databazeK.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="196" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

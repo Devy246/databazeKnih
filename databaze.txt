@@ -1,22 +1,20 @@
-The Great Gatsby, F. Scott Fitzgerald, Fiction, 180, 1925
-To Kill a Mockingbird, Harper Lee, Fiction, 281, 1960
-1984, George Orwell, Science Fiction, 328, 1949
-Pride and Prejudice, Jane Austen, Romance, 432, 1813
-The Lord of the Rings, J.R.R. Tolkien, Fantasy, 1178, 1954
-The Hobbit, J.R.R. Tolkien, Fantasy, 310, 1937
-The Hunger Games, Suzanne Collins, Dystopian, 374, 2008
-Fahrenheit 451, Ray Bradbury, Science Fiction, 227, 1953
-The Shining, Stephen King, Horror, 447, 1977
-Moby-Dick, Herman Melville, Adventure, 582, 1851
-Anna Karenina, Leo Tolstoy, Fiction, 964, 1878
-Frankenstein, Mary Shelley, Science Fiction, 280, 1818
-Alice's Adventures in Wonderland, Lewis Carroll, Fantasy, 200, 1865
-The Adventures of Sherlock Holmes, Arthur Conan Doyle, Mystery, 307, 1892
-War and Peace, Leo Tolstoy, Historical Fiction, 1392, 1869
-Les Miserables, Victor Hugo, Historical Fiction, 1463, 1862
-The Divine Comedy, Dante Alighieri, Epic Poetry, 798, 1320
-Crime and Punishment, Fyodor Dostoevsky, Psychological Fiction, 671, 1866
-The Brothers Karamazov, Fyodor Dostoevsky, Philosophical Fiction, 796, 1880
-Green Eggs and Ham, Dr. Seuss, Children's, 62, 1960
-Charlotte's Web, E.B. White, Children's, 184, 1952
-
+The Great Gatsby, F. Scott Fitzgerald, Fiction, 150, 1925
+To Kill a Mockingbird, Harper Lee, Fiction, 280, 1960
+1984, George Orwell, Science Fiction, 344, 1949
+Pride and Prejudice, Jane Austen, Romance, 295, 1813
+The Fellowship of the Rings, J.R.R. Tolkien, Fantasy, 474, 1954
+The Hobbit, J.R.R. Tolkien, Fantasy, 242, 1937
+The Hunger Games, Suzanne Collins, Dystopian, 328, 2008
+Fahrenheit 451, Ray Bradbury, Science Fiction, 160, 1953
+The Shining, Stephen King, Horror, 404, 1977
+Moby-Dick, Herman Melville, Adventure, 664, 1851
+Anna Karenina, Leo Tolstoj, Fiction, 880, 1877
+Frankenstein, Mary Shelley, Science Fiction, 302, 1818
+Alice's Adventure in Wonderland, Lewis Carroll, Fantasy, 166, 1865
+The Adventures of Sherlock Holmes, Arthur Conan Doyle, Mystery, 655, 1892
+War and Peace, Leo Tolstoy, Historical Fiction, 1468, 1869
+Les Miserables, Victor Hugo, Historical Fiction, 308, 1862
+The Divine Comedy, Dante Alighieri, Epic Poetry, 544, 1321
+Crime and Punishment, Fyodor Dostoevsky, Psychological Fiction, 494, 1866
+The Brothers Karamazov, Fyodor Dostoevsky, Philosophical Fiction, 850, 1880
+Charlotte's Web, E.B. White, Children's, 207, 1952
